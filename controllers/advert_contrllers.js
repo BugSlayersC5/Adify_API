@@ -3,7 +3,7 @@ import { Advert } from "../models/advert_models.js";
 
 export const postAdvert = async (req, res) => {
   try {
-    const { title, description, price, category } = req.body;
+    const { title, description, price, category, location } = req.body;
 
     const vendorId = req.user.id; 
 
@@ -14,6 +14,7 @@ export const postAdvert = async (req, res) => {
       description,
       price,
       category,
+      location,
       vendor: vendorId,
       images: imagePaths,
     });
@@ -27,7 +28,7 @@ export const postAdvert = async (req, res) => {
 
 export const getAllAdverts = async (req, res) => {
   try {
-    const { search, category, minPrice, maxPrice } = req.query;
+    const { search, category, minPrice, maxPrice, location } = req.query;
     const query = {};
 
     
@@ -38,6 +39,10 @@ export const getAllAdverts = async (req, res) => {
     
     if (category) {
       query.category = { $regex: category, $options: "i" };
+    }
+
+    if (location) {
+      query.location = { $regex: location, $options: "i" };
     }
 
     

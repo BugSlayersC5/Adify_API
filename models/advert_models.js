@@ -19,6 +19,10 @@ const advertSchema = new Schema({
         min: 0
     },
 
+    location:{
+        type: String
+    },
+
     category:{
         type: String,
         required: true

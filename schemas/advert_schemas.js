@@ -40,5 +40,7 @@ export const advertSchema = Joi.object({
 
   images: Joi.array(),
     
-  vendor: Joi.string() 
+  vendor: Joi.string() ,
+
+  location : Joi.string()
 })

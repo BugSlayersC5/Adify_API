@@ -37,7 +37,7 @@ export const getAllAdverts = async (req, res) => {
 
     
     if (category) {
-      query.category = category;
+      query.category = { $regex: category, $options: "i" };
     }
 
     
@@ -114,5 +114,20 @@ export const deleteAdvert = async (req, res) => {
     res.status(200).json({ message: "Advert deleted" });
   } catch (err) {
     res.status(500).json({ message: "Error deleting advert" });
+  }
+};
+
+export const getMyAdverts = async (req, res) => {
+  try {
+    const adverts = await Advert.find({ vendor: req.user.id }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: "Vendor adverts fetched successfully",
+      count: adverts.length,
+      adverts,
+    });
+  } catch (error) {
+    console.error("Get vendor adverts error:", error.message);
+    res.status(500).json({ message: "Server error" });
   }
 };

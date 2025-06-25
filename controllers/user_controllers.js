@@ -12,7 +12,7 @@ const generateToken = (user) => {
   const secretKey = process.env.JWT_SECRET;
 
   const token = jwt.sign(userData, secretKey, {
-    expiresIn: "1h"
+    expiresIn: "3h"
   });
 
   return token;
